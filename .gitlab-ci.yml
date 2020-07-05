@@ -1,0 +1,7 @@
+build:
+  script:
+  - cd /media/storage/gitlab/
+  after_script:
+  - cd /media/storage/gitlab/
+  - sudo rm -rf STM32F10x_Drivers_Lib
+  - git clone http://192.168.109.15/root/STM32F10x_Drivers_Lib.git

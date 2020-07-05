@@ -1,0 +1,415 @@
+---
+Language: Cpp
+# Ver 1.
+
+# Дополнительный отступ или отступ модификаторов доступа, (public:/private:/...).
+AccessModifierOffset: -2
+
+# Горизонтально выравнивает аргументы после открытой скобки.
+# 'DontAlign' нет выравнивания
+# 'Align' выравнивает на новых строках
+#   someLongFunction(argument1,
+#                    argument2);
+# 'AlwaysBreak' - просто разрывает после открытой скобки, если параметры не помещаются в одной строке.
+#   someLongFunction(
+#      argument1, argument2);
+AlignAfterOpenBracket: Align
+
+# Если true выравнивает последовательные значения для переменных.
+# int aaaa = 12;
+# int b    = 23;
+# int ccc  = 23;
+AlignConsecutiveAssignments: false
+
+# Если true, выравнивает последовательные объявления.
+# int         aaaa = 12;
+# float       b = 23;
+# std::string ccc = 23;
+AlignConsecutiveDeclarations: false
+
+# Выравнивает символ продолжения кода, косую черту '\'.
+# 'DontAlign' нет выравнивания
+# 'Left' выравнивает как можно левее.
+#   #define A  \
+#    int aaaa; \
+#    int b;    \
+#    int dddddddddd;
+# 'Right' выравнивает символы новой строки как можно правее.
+#   #define A                                                                     \
+#    int aaaa;                                                                    \
+#    int b;                                                                       \
+#    int dddddddddd;
+AlignEscapedNewlines: DontAlign
+
+# Если true горизонтально выравнивает операнды двоичных и тернарных выражений.
+# int aaa = bbbbbbbbbbbbbbb +
+#           ccccccccccccccc;
+AlignOperands: true
+
+# Если true, выравнивает комментарии идущие друг за другом.
+AlignTrailingComments: true
+
+# Если true, то запрещает переносить переменные в объявлении функций если они не помещаются.
+# void myFunction(
+#   int a, int b, int c, int d, int e);
+#
+# Если false, то переносит переменные если они не помещаются.
+#   void myFunction(int a,
+#                   int b,
+#                   int c);
+AllowAllParametersOfDeclarationOnNextLine: false
+
+# Ставит короткое while в одну строку while (true) { continue; }
+# false никогда не помещет короткие while в одну и ту же строку.
+AllowShortBlocksOnASingleLine: false
+
+# Ставит короткое switch case в одну строку case 1: x = 1; break;
+# false никогда не помещет короткие case в одну и ту же строку.
+AllowShortCaseLabelsOnASingleLine: false
+
+# В зависимости от значения, можно поставить в одну строку.int f() { return 0; }
+# 'None' никогда не объединяйте функции в одну строку.
+# 'Empty' объединять только пустые функции.
+# 'InlineOnly' только функции, определенные внутри класса.
+# 'Inline' Только пустые функции, определенные внутри класса.
+# 'All' объединить все функции в одну строку.
+AllowShortFunctionsOnASingleLine: Empty
+
+# Ставит короткое if в одну строку if (a) return;.
+# false никогда не помещет короткие if в одну и ту же строку.
+AllowShortIfStatementsOnASingleLine: true
+
+# Если true, то можно поставить в одну строку.while (true) continue;
+AllowShortLoopsOnASingleLine: true
+
+# Эта опция устарела и сохраняется для обратной совместимости.
+AlwaysBreakAfterDefinitionReturnType: None
+
+# Определяет правила постановки новой строки для функций и класов.
+# 'None' -
+#    class A {
+#      int f() { return 0; };
+#    };
+#    int f();
+#    int f() { return 1; }
+#
+# 'All' -
+#     class A {
+#        int
+#        f() {
+#          return 0;
+#        };
+#     };
+#     int
+#     f();
+#     int
+#     f() {
+#       return 1;
+#     }
+#
+AlwaysBreakAfterReturnType: None
+
+# Если true, то ставит в многострочных литералах новую строку.
+#  aaaa =
+#    "bbbb"
+#    "cccc";
+AlwaysBreakBeforeMultilineStrings: false
+
+# Если true, то ставит новую строку после объявления шаблонов
+#  template<class T>
+#  T& operator<<(T& out)
+AlwaysBreakTemplateDeclarations: false
+
+# Если false аргументы вызова функции будут находиться на одной строке.
+#  true:
+#  void f() {
+#    f(aaaaaaaaaaaaaaaaaaaa, aaaaaaaaaaaaaaaaaaaa,
+#      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa);
+#  }
+#  false:
+#  void f() {
+#    f(aaaaaaaaaaaaaaaaaaaa,
+#      aaaaaaaaaaaaaaaaaaaa,
+#      aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa);
+#  }
+BinPackArguments: false
+
+# Если false параметры объявления функции или определения функции будут находиться на одной строке.
+#  true:
+#  void f(int aaaaaaaaaaaaaaaaaaaa, int aaaaaaaaaaaaaaaaaaaa,
+#         int aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa) {}
+#  false:
+#  void f(int aaaaaaaaaaaaaaaaaaaa,
+#         int aaaaaaaaaaaaaaaaaaaa,
+#         int aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa) {}
+BinPackParameters: false
+
+# Определяет как будут расположены операторы в длинных бинарных операциях.
+# 'None' после операторов.
+#  bool value = aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa &&
+#                   ccccccccccccccccccccccccccccccccccccccccc;
+# 'NonAssignment' перед операторами, которые не являются назначениями.
+#  bool value = aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+#                     || ccccccccccccccccccccccccccccccccccccccccc;
+# 'All' перед всеми операторами.
+
+# Варианты обернуть бинарные операторы.
+# 'None' разбиение после операторов.
+# 'All' разбиение перед операторами.
+# 'NonAssignment' разбиение перед операторами, которые не являются назначениями.
+BreakBeforeBinaryOperators: None
+
+# Вставлять новую строку после '{' в операторах if/for/while/try.
+# 'Attach' никогда не создавать новую строку (try {).
+# 'Linux' как в Attach, но для определения класса/функций/пространств имен создает строку.
+# 'Mozilla' как в Attach, но для определения класса/функций создает строку.
+# 'Stroustrup' как в Attach, но для определения функций и else создает строку.
+# 'Allman' всегда создавать новую строку.
+# 'Custom' - применять правила указанные в BraceWrapping
+BreakBeforeBraces: Custom
+
+# Всякий раз вставляет новую строку по правилам для ниже перечисленных объектах если BreakBeforeBraces - 'Custom'
+BraceWrapping:
+  AfterClass: true # для классы
+  AfterControlStatement: false # для операторов if/for/while
+  AfterEnum: false # для перечислений
+  AfterFunction: true # для функций
+  AfterNamespace: false # для пространства имен
+  AfterObjCDeclaration: false # для определения ObjC
+  AfterStruct: true # для структур
+  AfterUnion: true # для union
+  BeforeCatch: false # для операторов catch
+  BeforeElse: false # для операторов else/elseif
+  IndentBraces: false # для операторов, генерит отступы
+  SplitEmptyFunction: true
+  SplitEmptyRecord: true
+  SplitEmptyNamespace: true
+
+# Вставлять новую строку в записях наследованых классов
+# true:
+#  class MyClass
+#     : public X
+#     , public Y {
+# };
+# false:
+#  class MyClass : public X, public Y {
+#  };
+BreakBeforeInheritanceComma: true
+
+# Форматирование тернарных операторов
+# true:
+#  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongDescription
+#      ? firstValue
+#      : SecondValueVeryVeryVeryVeryLong;
+# false:
+#  veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongDescription ?
+#      firstValue :
+#      SecondValueVeryVeryVeryVeryLong;
+BreakBeforeTernaryOperators: true
+
+BreakConstructorInitializersBeforeComma: false
+
+# Используемый стиль инициализатора конструктора.
+# 'BeforeColon' разбиение инициализаторов конструктора перед двоеточием и после запятых.
+# 'BeforeComma' разбиение инициализаторов конструктора перед двоеточием и запятыми и выравниваниее запятх с двоеточием.
+# 'AfterColon' разбиение инициализаторы конструктора после двоеточия и запятых.
+BreakConstructorInitializers: BeforeComma
+
+# Перерыв после каждой аннотации на поле в файлах Java.
+BreakAfterJavaFieldAnnotations: true
+
+# Если true, то переносит строковые литералы на новую строку.
+# true:
+# const char* x = "veryVeryVeryVeryVeryVe"
+#                 "ryVeryVeryVeryVeryVery"
+#                "VeryLongString";
+
+# false:
+# const char* x =
+#   "veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongString";
+BreakStringLiterals: false
+
+# Размер строки. Больше этого значения строка будет разделятся.
+#  Ограничение строки '0' означает, что ограничение отсутствует.
+#  В этом случае формат clang будет учитывать решения ввода строк в выражениях,
+#  если они не противоречат другим правилам.
+ColumnLimit: 80
+
+# Если true последовательные объявления пространства имен будут в одной строке.
+# Если false каждое пространство имен объявлено в новой строке.
+CompactNamespaces: false
+
+# Если инициализаторы конструктора не помещаются в строку, поместите каждый инициализатор в отдельную строку.
+# true:
+#  SomeClass::Constructor()
+#      : aaaaaaaa(aaaaaaaa), aaaaaaaa(aaaaaaaa), aaaaaaaa(aaaaaaaaaaaaaaaaaaaaaaaaa) {
+#    return 0;
+#  }
+#  false:
+#  SomeClass::Constructor()
+#      : aaaaaaaa(aaaaaaaa), aaaaaaaa(aaaaaaaa),
+#        aaaaaaaa(aaaaaaaaaaaaaaaaaaaaaaaaa) {
+#    return 0;
+#  }
+ConstructorInitializerAllOnOneLineOrOnePerLine: false
+
+# Количество символов, используемых для отступа списков инициализатора конструкторов и списков наследования.
+ConstructorInitializerIndentWidth: 2
+
+# Ширина отступа для продолжения строки.
+# при 2:
+#  int i =         //  VeryVeryVeryVeryVeryLongComment
+#    longFunction( // Again a long comment
+#      arg);
+ContinuationIndentWidth: 4
+
+# Если true, то размещает списки в скобках каждый в новой строке.
+# Если false пытается скомпоновать списки в скобках в несколько строк.
+Cpp11BracedListStyle: true
+
+# Если false, то использует стиль выравнивания указателя и ссылки
+#  согласно правилу в PointerAlignment.
+# Если true, то использует автоматический стиль выравнивания
+DerivePointerAlignment: false
+
+# Если true, то отключает форматирование.
+DisableFormat: false
+
+# Флаг определяет, отформатированы ли вызовы функций, не рекомендуется(всегда false)
+ExperimentalAutoDetectBinPacking: false
+
+# Если true, то добавляет отсутствующие комментарии к концу пространства имен и исправляет недействительные.
+FixNamespaceComments: true
+
+ForEachMacros:
+  - foreach
+  - Q_FOREACH
+  - BOOST_FOREACH
+  - FOREACH_THING
+  - FOREACH_CHILD
+  - FOREACH_CHILD_NOT_DEEPER
+  - FOREACH_VISIBLE_THING
+  - FOREACH_VISIBLE_CHILD
+IncludeCategories:
+  - Regex: '^"stdafx\.h"$'
+    Priority: -1
+  - Regex: '^<Common/Common\.h>$'
+    Priority: -1
+  - Regex: '^"Common/Common\.h"$'
+    Priority: -1
+  - Regex: '^"Common\.h"$'
+    Priority: -1
+IncludeIsMainRegex: "(Test)?$"
+IndentCaseLabels: true
+IndentPPDirectives: None
+IndentWidth: 4
+IndentWrappedFunctionNames: false
+JavaScriptQuotes: Leave
+JavaScriptWrapImports: true
+KeepEmptyLinesAtTheStartOfBlocks: false
+MacroBlockBegin: "^(BEGIN_MESSAGE_MAP|BEGIN_EVENT_|BEGIN_CTX_|DEFINE_.*COMMAND$|DEFINE_CONDITIONAL_COMMAND_DUPLICATE|DEFINE_API_QUERY|HOTKEY_BINDING_TABLE_BEGIN|TM_DEFINE_.*_BEGIN|BEGIN_PARAMETER_INITIALIZATION_MAP|FOR_EACH_EDGE_AT_)"
+MacroBlockEnd: "^(END_MESSAGE_MAP|END_EVENT_|END_CTX_|END_COMMAND|HOTKEY_BINDING_TABLE_END|TM_DEFINE_.*_END|END_PARAMETER_INITIALIZATION_MAP|END_FOR_EACH_EDGE_AT_)"
+
+# Максимальное количество последовательных пустых строк между операторами.
+#  MaxEmptyLinesToKeep: 0
+#  int f() {
+#     int i = 1;
+#     i = foo();
+#     return i;
+#  }
+MaxEmptyLinesToKeep: 1
+
+# Отступы, используемые для пространств имен.
+# 'None' не делайте отступ в пространствах имен.
+# 'Inner' отступ только во внутренних пространствах имен (вложенных в другие пространства имен).
+# 'All' отступ во всех пространствах имен.
+NamespaceIndentation: Inner
+
+ObjCBlockIndentWidth: 4
+ObjCSpaceAfterProperty: true
+ObjCSpaceBeforeProtocolList: false
+
+PenaltyBreakAssignment: 5
+PenaltyBreakBeforeFirstCallParameter: 10
+PenaltyBreakComment: 300
+PenaltyBreakFirstLessLess: 120
+PenaltyBreakString: 1000
+PenaltyExcessCharacter: 1000000
+PenaltyReturnTypeOnItsOwnLine: 120
+
+# Стиль выравнивания указателя и ссылки. Включается если
+# Left' Выровнять указатель по левому краю (int* a).
+# 'Right' Выровнять указатель по правому краю (int *a).
+# 'Middle' Выровнять указатель посередине. (int * a).
+PointerAlignment: Left
+
+# Если true, clang-format попытается повторно передать комментарии на новой строке.
+#  false:
+#  // veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongComment with plenty of information
+#  /* second veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongComment with plenty of information */
+#  true:
+#  // veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongComment with plenty of
+#  // information
+#  /* second veryVeryVeryVeryVeryVeryVeryVeryVeryVeryVeryLongComment with plenty of
+#   * information */
+ReflowComments: false
+
+# Если true, clang-формат будет сортировать #includes.
+SortIncludes: false
+
+# Если true, то применяет сортировку объявлений.
+SortUsingDeclarations: false
+
+# Если true, то после C-стиля вставлен пробел(n = (int) i).
+SpaceAfterCStyleCast: false
+
+# Если true, то после ключевого слова 'template' будет вставлен пробел.
+SpaceAfterTemplateKeyword: false
+
+# Если false, то пробелы будут удалены перед операторами присваивания(int a= 5;).
+SpaceBeforeAssignmentOperators: true
+
+# Определяет, в каких случаях ставить пробел перед открытием скобок.
+# 'ControlStatements' это после ( for/if/while...).
+# 'Never' никогда не ставит пробел перед открытием скобок.
+# 'Always' всегда ставит пробел перед открытием скобок, за исключением случаев,
+#  когда это запрещено правилами синтаксиса (в определениях макросов, подобных функциям)
+#  или когда определяется другими правилами стиля (после унарных операторов, открывающих скобок и т. д.)
+# 'NonEmptyParentheses' ставит пробел перед открытием скобок, только если скобки не пустые, т.е. '()'
+SpaceBeforeParens: Never
+
+# Если true пробелы могут быть вставлены в пустые скобки void f ( ).
+SpaceInEmptyParentheses: false
+
+# Количество пробелов перед завершающей строкой комментариев ( //- comments).
+#  Это не влияет на комментарии конечного блока ( /*- комментарии),
+#  так как они обычно имеют разные модели использования и ряд особых случаев.
+SpacesBeforeTrailingComments: 1
+
+# Если true пробелы будут вставлены после <и до > в списках аргументов шаблона static_cast< int >(arg);.
+SpacesInAngles: false
+
+# Если true пробелы вставляются внутри контейнерных литералов int arr = [ 1, 2, 3 ];.
+SpacesInContainerLiterals: true
+
+# Если true пробелы могут быть вставлены в приведение типа стиля C x = ( int32 )y.
+SpacesInCStyleCastParentheses: false
+
+# Если true пробелы будут вставлены после (и до ) t f( Deleted & ) & = delete;.
+SpacesInParentheses: false
+
+# Если true пробелы будут вставлены после [и до ] int a[ 5 ];.
+#  Lambdas без аргументов или без указания размера массива объявлений не будут затронуты.
+SpacesInSquareBrackets: false
+
+Standard: Cpp11
+
+# Количество пробелов, используемых для табуляции.
+TabWidth: 4
+
+# Способ использования символов табуляции в файле.
+# 'Never' не использует Tab, заменяет его пробелами
+# 'ForIndentation' использует Tab только для отступа.
+# 'ForContinuationAndIndentation' использует Tab только для продолжения строки и отступа.
+# 'Always' использует Tab всякий раз, когда нужно поставить отступ
+UseTab: ForIndentation
