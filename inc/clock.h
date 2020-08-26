@@ -31,8 +31,7 @@ class Clock
 		HSE = (1 << 1),
 		PLL = (1 << 2),
 		LSE = (1 << 3),
-		LSI = (1 << 4),
-		UNKNOWN = (1 << 4)
+		LSI = (1 << 4)
 	};
 
 	Clock() = default;

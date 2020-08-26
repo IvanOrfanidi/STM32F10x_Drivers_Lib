@@ -215,6 +215,6 @@ class Spi
 extern "C" {
 }
 
-#endif //__cplusplus
+#endif // __cplusplus
 
 #endif

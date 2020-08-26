@@ -11,36 +11,36 @@
 /* Standart lib */
 #include <stdint.h>
 
+/* Utils */
+#include <inc/utils/lock_interrupt.h>
+
 #ifdef __cplusplus
 
 /* C++ lib*/
 #include <functional>
-#include <list>
+#include <set>
 
-// SubjectObserver
+// Subject Observer
 class SubjectObserver
 {
   public:
 	SubjectObserver() = default;
-	~SubjectObserver() = default;
+	virtual ~SubjectObserver() = default;
 
 	virtual void update() = 0;
 };
 
-// ObServer
+// Observer
 class Observer
 {
   public:
-	// Priority subscriber
-	enum class Priority { LOW, HIGH };
-
 	Observer() = default;
-	~Observer() = default;
+	virtual ~Observer() = default;
 
 	// Notify subscribers and subjects
 	void notify()
 	{
-		for(auto& subject : _subjects) {
+		for(const auto& subject : _subjects) {
 			subject->update();
 		}
 	}
@@ -48,25 +48,32 @@ class Observer
 	/**
      * @brief Adding subscriber in observer
      * @param [in] subject - callback subject
-     * @param [in] priority - priority(LOW or HIGH)
     */
-	void attach(SubjectObserver* subject,
-	            const Priority priority = Priority::LOW)
+	void attach(SubjectObserver* subject)
 	{
-		if(Priority::HIGH == priority) {
-			_subjects.push_front(subject);
-		} else {
-			_subjects.push_back(subject);
-		}
+		// Check interrupt status enable
+		LockInterrupt lockInterrupt;
+		_subjects.emplace(subject);
+	}
+
+	/**
+     * @brief Detach subscriber in observer
+     * @param [in] subject - callback subject
+    */
+	void detach(SubjectObserver* subject)
+	{
+		// Check interrupt status enable
+		LockInterrupt lockInterrupt;
+		_subjects.erase(subject);
 	}
 
   private:
-	std::list<class SubjectObserver*> _subjects; //< Subjects class
+	std::set<class SubjectObserver*> _subjects; //< Subjects class
 };
 
 extern "C" {
 }
 
-#endif //__cplusplus
+#endif // __cplusplus
 
 #endif // __OBSERVER_H

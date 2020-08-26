@@ -141,6 +141,6 @@ class Exti
 extern "C" {
 }
 
-#endif //__cplusplus
+#endif // __cplusplus
 
 #endif // __EXTI_H

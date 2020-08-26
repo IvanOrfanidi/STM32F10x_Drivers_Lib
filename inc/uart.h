@@ -257,6 +257,6 @@ class Uart
 extern "C" {
 }
 
-#endif //__cplusplus
+#endif // __cplusplus
 
 #endif

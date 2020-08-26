@@ -113,6 +113,6 @@ class PinInterface
 extern "C" {
 }
 
-#endif //__cplusplus
+#endif // __cplusplus
 
 #endif // __PIN_INTERFACE_H

@@ -23,6 +23,6 @@ template<class T> class NonMovable
 extern "C" {
 }
 
-#endif //__cplusplus
+#endif // __cplusplus
 
 #endif // __NON_MOVABLE_H
