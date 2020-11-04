@@ -88,12 +88,8 @@ bool Interrupt::isEnabledGlobally()
 {
 	/* Read PRIMASK register, check interrupt status before you disable them
 	   Returns 0 if they are enabled, or non-zero if disabled */
-	const auto prim = __get_PRIMASK();
-	if(0 == prim) {
-		return true;
-	}
-
-	return false;
+	const uint32_t primask = __get_PRIMASK();
+	return (0 == primask);
 }
 
 /**

@@ -20,6 +20,9 @@
 
 #ifdef __cplusplus
 
+/* C++ lib */
+#include <functional>
+
 namespace stm32f10x_driver_lib {
 
 class PinInterface

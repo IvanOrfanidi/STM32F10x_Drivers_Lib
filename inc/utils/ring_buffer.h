@@ -45,7 +45,11 @@ template<typename T> class RingBuffer
 		std::copy(other._buffer, (other._buffer + other._size), _buffer);
 	}
 
-	// Copy assignment operator
+	/**
+	 * @brief Copy assignment operator
+	 * @param other - new class RingBuffer
+	 * @return RingBuffer& copy class RingBuffer
+	 */
 	RingBuffer& operator=(const RingBuffer& other)
 	{
 		if(this != &other) {
@@ -63,7 +67,10 @@ template<typename T> class RingBuffer
 		return *this;
 	}
 
-	// Move constructor
+	/**
+	 * @brief Construct a new Ring Buffer object
+	 * @param other - new class RingBuffer
+	 */
 	RingBuffer(RingBuffer&& other)
 	{
 		*this = std::move(other);
@@ -84,7 +91,7 @@ template<typename T> class RingBuffer
 	/**
      * @brief Removes the next element in the buffer, reducing its size by one.
      * @retval next element
-     */
+	*/
 	T pop()
 	{
 		if(empty()) {
@@ -102,7 +109,7 @@ template<typename T> class RingBuffer
 	/**
      * @brief  Inserts a new element at the end of the buffer, after its current last element.
      * @param [in] data - data new element
-     */
+	*/
 	void push(const T& data)
 	{
 		_buffer[_head++] = data;
@@ -112,7 +119,9 @@ template<typename T> class RingBuffer
 		++_count;
 	}
 
-	// Clear buffer
+	/**
+     * @brief Clear buffer
+	*/
 	void clear()
 	{
 		_tail = 0;

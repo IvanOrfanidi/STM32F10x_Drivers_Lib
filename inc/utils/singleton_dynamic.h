@@ -18,7 +18,7 @@
 
 #ifdef __cplusplus
 
-template<typename T>
+template<class T>
 class SingletonDynamic
   : private NonCopyable<T>
   , private NonMovable<T>
@@ -27,11 +27,12 @@ class SingletonDynamic
 	// Get instance class
 	static T* getInstance()
 	{
-		// Check interrupt status enable
-		LockInterrupt lockInterrupt;
-		// Create class instance
 		if(nullptr == _instance) {
-			_instance = new T();
+			LockInterrupt lockInterrupt;
+			// Create class instance
+			if(nullptr == _instance) {
+				_instance = new T();
+			}
 		}
 
 		return _instance;
@@ -54,7 +55,7 @@ class SingletonDynamic
 	static T* _instance;
 };
 
-template<typename T> T* SingletonDynamic<T>::_instance = nullptr;
+template<class T> T* SingletonDynamic<T>::_instance = nullptr;
 
 extern "C" {
 }

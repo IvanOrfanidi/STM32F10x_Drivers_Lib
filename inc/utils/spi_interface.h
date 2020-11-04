@@ -32,7 +32,7 @@ class SpiInterface
   : private NonCopyable<SpiInterface>
   , private NonMovable<SpiInterface>
   , public Exti
-  , public SubjectObserver
+  , public Listener
 {
   public:
 	struct Config
@@ -99,7 +99,7 @@ class SpiInterface
 		Exti::disable();
 	}
 
-	void attach(SubjectObserver* subject)
+	void attach(Listener* subject)
 	{
 		_handlerInterrupt = subject;
 	}
@@ -185,7 +185,7 @@ class SpiInterface
 	SpiInterface() = delete;
 
 	VirtualPort* _port;
-	SubjectObserver* _handlerInterrupt;
+	Listener* _handlerInterrupt;
 
 	PinInterface _reset;
 	PinInterface _cs;

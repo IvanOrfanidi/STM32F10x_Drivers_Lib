@@ -18,57 +18,103 @@
 
 /* C++ lib*/
 #include <functional>
-#include <set>
 
-// Subject Observer
-class SubjectObserver
+/**
+ * @brief Listener Observer
+ */
+class Listener
 {
   public:
-	SubjectObserver() = default;
-	virtual ~SubjectObserver() = default;
-
+	virtual ~Listener() = default;
 	virtual void update() = 0;
 };
 
-// Observer
+/**
+ * @brief Observer
+ */
 class Observer
 {
   public:
-	Observer() = default;
+	Observer()
+	  : _index(0)
+	{
+		for(auto& listener : _listeners) {
+			listener = nullptr;
+		}
+	}
+
 	virtual ~Observer() = default;
 
-	// Notify subscribers and subjects
+	/**
+	 * @brief Notify listeners
+	 */
 	void notify()
 	{
-		for(const auto& subject : _subjects) {
-			subject->update();
+		for(size_t i = 0; i < _index; ++i) {
+			_listeners[i]->update();
 		}
 	}
 
 	/**
-     * @brief Adding subscriber in observer
-     * @param [in] subject - callback subject
-    */
-	void attach(SubjectObserver* subject)
+	 * @brief Adding listener in observer
+	 * @param [in] listener - callback listener
+	 */
+	bool attach(Listener* listener)
 	{
-		// Check interrupt status enable
-		LockInterrupt lockInterrupt;
-		_subjects.emplace(subject);
+		if(_index < MAXIMUM_QUANTITY_OF_LISTENERS) {
+			// Check interrupt status enable
+			LockInterrupt lockInterrupt;
+
+			// Listener shouldn't be already subscribed
+			for(size_t i = 0; i < _index; ++i) {
+				if(_listeners[i] == listener) {
+					return false;
+				}
+			}
+			_listeners[_index] = listener;
+			++_index;
+			return true;
+		}
+		return false;
 	}
 
 	/**
-     * @brief Detach subscriber in observer
-     * @param [in] subject - callback subject
-    */
-	void detach(SubjectObserver* subject)
+	 * @brief Detach listener in observer
+	 * @param [in] listener - callback listener
+	 */
+	bool detach(Listener* listener)
 	{
-		// Check interrupt status enable
-		LockInterrupt lockInterrupt;
-		_subjects.erase(subject);
+		if(_index > 0) {
+			// Check interrupt status enable
+			LockInterrupt lockInterrupt;
+
+			for(size_t i = 0; i < _index; ++i) {
+				if(_listeners[i] == listener) {
+					for(size_t n = i; n < _index; ++n) {
+						const size_t next = n + 1;
+						if(next >= MAXIMUM_QUANTITY_OF_LISTENERS) {
+							_listeners[n] = nullptr;
+						} else {
+							_listeners[n] = _listeners[next];
+						}
+					}
+					--_index;
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+
+	bool isListeners() const noexcept
+	{
+		return _index != 0;
 	}
 
   private:
-	std::set<class SubjectObserver*> _subjects; //< Subjects class
+	static constexpr size_t MAXIMUM_QUANTITY_OF_LISTENERS = 10;
+	class Listener* _listeners[MAXIMUM_QUANTITY_OF_LISTENERS];
+	size_t _index;
 };
 
 extern "C" {
