@@ -35,7 +35,7 @@ class Clock
 	};
 
 	Clock() = default;
-	virtual ~Clock() = default;
+	~Clock() = default;
 
 	// Enable GPIO clock
 	void enable(const GPIO_TypeDef*) const;

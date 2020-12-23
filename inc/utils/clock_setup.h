@@ -20,10 +20,13 @@
 namespace stm32f10x_driver_lib {
 
 class ClockSetup
-  : public stm32f10x_driver_lib::Clock
+  : public SingletonStatic<ClockSetup>
+  , public stm32f10x_driver_lib::Clock
   , public stm32f10x_driver_lib::Flash
 {
   public:
+	friend class SingletonStatic<ClockSetup>;
+
 	void inHse8MHzOut72MHz() const
 	{
 		Clock::enableHighSpeedInternalClock();
@@ -44,11 +47,15 @@ class ClockSetup
 		Clock::setApb2PrescaleFactor(RCC_CFGR_PPRE2_DIV1);
 
 		/* Sysclk runs with 72MHz -> 2 waitstates.
-    	 * 0WS from 0-24MHz
-    	 * 1WS from 24-48MHz
-    	 * 2WS from 48-72MHz */
+		 * 0WS from 0-24MHz
+		 * 1WS from 24-48MHz
+		 * 2WS from 48-72MHz */
 		Flash::setLatency(FLASH_ACR_LATENCY_2);
 	}
+
+  private:
+	ClockSetup() = default;
+	~ClockSetup() = default;
 };
 
 } // namespace stm32f10x_driver_lib
