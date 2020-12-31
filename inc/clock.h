@@ -27,11 +27,11 @@ class Clock
 {
   public:
 	enum class ClockSource {
-		HSI = (1 << 0),
-		HSE = (1 << 1),
-		PLL = (1 << 2),
-		LSE = (1 << 3),
-		LSI = (1 << 4)
+		HSI = RCC_CFGR_SW_HSI,
+		HSE = RCC_CFGR_SW_HSE,
+		PLL = RCC_CFGR_SW_PLL,
+		LSE,
+		LSI
 	};
 
 	Clock() = default;
@@ -79,6 +79,12 @@ class Clock
 	// Disable HSI
 	void disableHighSpeedInternalClock() const;
 
+	// Enable PLL
+	void enablePhaseLockedLoopsClock() const;
+
+	// Disable PLL
+	void disablePhaseLockedLoopsClock() const;
+
 	// Set the AHB Prescale Factor
 	void setAhbPrescaleFactor(uint32_t prescaler) const;
 
@@ -87,6 +93,12 @@ class Clock
 
 	// Set the APB2 Prescale Factor
 	void setApb2PrescaleFactor(uint32_t prescaler) const;
+
+	// Set the PLL Multiplication Factor
+	void setPllMultiplicationFactor(uint32_t pllMultiplicationFactor) const;
+
+	// Set the PLL Source object
+	void setPllSource(uint32_t pllSource) const;
 
 	// Enable BKP
 	void enableBackupRegister() const;
@@ -99,11 +111,14 @@ class Clock
 
 	void setSystemSource(ClockSource) const;
 
-	// Configure clock source
+	// Configure Clock Source
 	void setRtcSource(ClockSource) const;
 
-	// Return ready clock source
+	// Return Ready Clock Source
 	bool isReadyClockSource(ClockSource) const;
+
+	// Get the System Clock Source
+	ClockSource getSystemClockSource() const;
 
 	bool isReadyRrealTimeClock() const;
 

@@ -167,9 +167,25 @@ void Clock::disableLowSpeedInternalClock() const
 	RCC->CSR &= ~RCC_CSR_LSION;
 }
 
+/**
+  * @brief Enable PLL
+  */
+void Clock::enablePhaseLockedLoopsClock() const
+{
+	RCC->CR |= RCC_CR_PLLON;
+}
+
+/**
+  * @brief Disable PLL
+  */
+void Clock::disablePhaseLockedLoopsClock() const
+{
+	RCC->CR &= ~RCC_CR_PLLON;
+}
+
 /*
- * @brief Set and cleared by hardware to indicate which clock source is used as system clock
- * @param [in] source - clock source(HSI, HSE or PLL)
+ * @brief Set and cleared by hardware to indicate which Clock Source is used as system clock
+ * @param [in] source - Clock Source(HSI, HSE or PLL)
  * 00: HSI oscillator used as system clock
  * 01: HSE oscillator used as system clock
  * 10: PLL used as system clock
@@ -183,8 +199,8 @@ void Clock::setSystemSource(ClockSource source) const
 }
 
 /**
-  * @brief Configure clock source
-  * @param [in] source - clock source(LSE, LSI or HSE)
+  * @brief Configure Clock Source
+  * @param [in] source - Clock Source(LSE, LSI or HSE)
   */
 void Clock::setRtcSource(ClockSource source) const
 {
@@ -207,13 +223,13 @@ void Clock::setRtcSource(ClockSource source) const
 }
 
 /**
-  * @brief Return ready clock source
-  * @param [in] source - clock source(LSE, LSI or HSE)
+  * @brief Return ready Clock Source
+  * @param [in] source - Clock Source(HSI, HSE, PLL, LSE, LSI or HSE)
   * @retval true - success , false - fail
   */
 bool Clock::isReadyClockSource(ClockSource source) const
 {
-	bool isReady;
+	bool isReady = false;
 
 	switch(source) {
 		case ClockSource::LSE:
@@ -228,12 +244,47 @@ bool Clock::isReadyClockSource(ClockSource source) const
 			isReady = RCC->CR & RCC_CR_HSIRDY;
 			break;
 
-		default:
+		case ClockSource::PLL:
+			isReady = RCC->CR & RCC_CR_PLLRDY;
+			break;
+
+		case ClockSource::LSI:
 			isReady = RCC->CSR & RCC_CSR_LSIRDY;
+			break;
+
+		default:
 			break;
 	}
 
 	return isReady;
+}
+
+/**
+ * @brief Get the System Clock Source
+ * @return ClockSource - (HSI, HSE or PLL)
+ */
+Clock::ClockSource Clock::getSystemClockSource() const
+{
+	ClockSource systemClockSource;
+	const uint32_t cfgrSws = RCC->CFGR & RCC_CFGR_SWS;
+	switch(cfgrSws) {
+		case 0x00U: /* HSI used as system clock */
+			systemClockSource = ClockSource::HSI;
+			break;
+
+		case 0x04U: /* HSE used as system clock */
+			systemClockSource = ClockSource::HSE;
+			break;
+
+		case 0x08U: /* PLL used as system clock */
+			systemClockSource = ClockSource::PLL;
+			break;
+
+		default:
+			break;
+	}
+
+	return systemClockSource;
 }
 
 /**
@@ -252,12 +303,32 @@ void Clock::setApb1PrescaleFactor(uint32_t prescaler) const
 	RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_PPRE1) | prescaler;
 }
 
+//void Clock::setAdcPrescaleFactor
+
 /**
   * @brief Set the APB2 Prescale Factor
   */
 void Clock::setApb2PrescaleFactor(uint32_t prescaler) const
 {
 	RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_PPRE2) | prescaler;
+}
+
+/**
+ * @brief Set the PLL Multiplication Factor
+ * @param [in] pllMultiplicationFactor - PLL Multiplication Factor
+ */
+void Clock::setPllMultiplicationFactor(uint32_t pllMultiplicationFactor) const
+{
+	RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_PLLMULL) | pllMultiplicationFactor;
+}
+
+/**
+ * @brief Set the PLL Source object
+ * @param pllSource [in]
+ */
+void Clock::setPllSource(uint32_t pllSource) const
+{
+	RCC->CFGR = (RCC->CFGR & ~RCC_CFGR_PLLSRC) | pllSource;
 }
 
 /**

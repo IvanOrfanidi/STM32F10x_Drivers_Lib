@@ -34,23 +34,39 @@ class ClockSetup
 		}
 		Clock::setSystemSource(ClockSource::HSI);
 
-		enableHighSpeedExternalClock();
+		Clock::enableHighSpeedExternalClock();
 		while(!Clock::isReadyClockSource(ClockSource::HSE)) {
 		}
-		Clock::setSystemSource(ClockSource::HSI);
+		Clock::setSystemSource(ClockSource::HSE);
 
-		// Set. 72MHz Max. 72MHz
-		Clock::setAhbPrescaleFactor(RCC_CFGR_HPRE_DIV1);
-		// Set. 36MHz Max. 36MHz
-		Clock::setApb1PrescaleFactor(RCC_CFGR_PPRE1_DIV2);
-		// Set. 64MHz Max. 72MHz
-		Clock::setApb2PrescaleFactor(RCC_CFGR_PPRE2_DIV1);
-
+		// Enable Prefetch Buffer
+		Flash::enablePrefetchBuffer();
 		/* Sysclk runs with 72MHz -> 2 waitstates.
 		 * 0WS from 0-24MHz
 		 * 1WS from 24-48MHz
 		 * 2WS from 48-72MHz */
 		Flash::setLatency(FLASH_ACR_LATENCY_2);
+
+		// Set. 72MHz Max. 72MHz
+		Clock::setAhbPrescaleFactor(RCC_CFGR_HPRE_DIV1);
+		// Set. 72MHz Max. 72MHz
+		Clock::setApb2PrescaleFactor(RCC_CFGR_PPRE2_DIV1);
+		// Set. 36MHz Max. 36MHz
+		Clock::setApb1PrescaleFactor(RCC_CFGR_PPRE1_DIV2);
+
+		// PLL configuration: PLLCLK = HSE * 9 = 72 MHz
+		Clock::setPllMultiplicationFactor(RCC_CFGR_PLLMULL9);
+
+		// Select HSE as PLL source
+		Clock::setPllSource(RCC_CFGR_PLLSRC_HSE);
+
+		// Enable PLL
+		Clock::enablePhaseLockedLoopsClock();
+		while(!Clock::isReadyClockSource(ClockSource::PLL)) {
+		}
+
+		// Select PLL as system clock source
+		Clock::setSystemSource(ClockSource::PLL);
 	}
 
   private:

@@ -23,9 +23,9 @@ class Flash
   public:
 	void setLatency(uint32_t) const;
 
-	void enablePrefetching() const;
+	void enablePrefetchBuffer() const;
 
-	void disablePrefetching() const;
+	void disablePrefetchBuffer() const;
 };
 
 } // namespace stm32f10x_driver_lib

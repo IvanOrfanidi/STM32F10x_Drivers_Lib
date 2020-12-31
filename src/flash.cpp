@@ -13,12 +13,12 @@ void Flash::setLatency(uint32_t latency) const
 	FLASH->ACR |= latency;
 }
 
-void Flash::enablePrefetching() const
+void Flash::enablePrefetchBuffer() const
 {
 	FLASH->ACR |= FLASH_ACR_PRFTBE;
 }
 
-void Flash::disablePrefetching() const
+void Flash::disablePrefetchBuffer() const
 {
 	FLASH->ACR &= ~FLASH_ACR_PRFTBE;
 }
