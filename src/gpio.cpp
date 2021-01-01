@@ -65,7 +65,7 @@ void Gpio::init(const Config& config) const
 		mode |= static_cast<uint32_t>(config.speed);
 	}
 
-	constexpr uint32_t NUM_PIN = 8;
+	static constexpr uint32_t NUM_PIN = 8;
 	uint32_t pinPos;
 	if(_pin & 0x00FF) {
 		// GPIO CRL Configuration

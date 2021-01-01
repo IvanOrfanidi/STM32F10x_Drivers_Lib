@@ -114,12 +114,12 @@ void Spi::init(const Config& config, size_t rxSize)
 	            config.prescaler;
 
 	if(Mode::MASTER == config.mode) {
-		constexpr uint16_t NSS_SOFT = 0x0200;
+		static constexpr uint16_t NSS_SOFT = 0x0200;
 		_spi->CR1 |= NSS_SOFT;
 	}
 
 	// Activate the SPI mode
-	constexpr uint16_t SPI_MODE_SELECT = 0xF7FF;
+	static constexpr uint16_t SPI_MODE_SELECT = 0xF7FF;
 	_spi->I2SCFGR &= SPI_MODE_SELECT;
 
 	_spi->CRCPR = config.crcPolynomial;
@@ -467,7 +467,7 @@ void Spi::disable() const
  */
 void Spi::enableCalculateCrc() const
 {
-	constexpr uint16_t CRC_ENABLE = 0x2000;
+	static constexpr uint16_t CRC_ENABLE = 0x2000;
 	_spi->CR1 |= CRC_ENABLE;
 }
 
@@ -476,7 +476,7 @@ void Spi::enableCalculateCrc() const
  */
 void Spi::disableCalculateCrc() const
 {
-	constexpr uint16_t CRC_DISABLE = 0xDFFF;
+	static constexpr uint16_t CRC_DISABLE = 0xDFFF;
 	_spi->CR1 &= ~CRC_DISABLE;
 }
 

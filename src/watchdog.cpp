@@ -29,7 +29,7 @@ void Watchdog::start() const
  */
 void Watchdog::enable() const
 {
-	constexpr uint16_t KeyEnable = 0xCCCC;
+	static constexpr uint16_t KeyEnable = 0xCCCC;
 	IWDG->KR = KeyEnable;
 }
 
@@ -38,7 +38,7 @@ void Watchdog::enable() const
  */
 void Watchdog::reset() const
 {
-	constexpr uint16_t KeyReload = 0xCCCC;
+	static constexpr uint16_t KeyReload = 0xCCCC;
 	IWDG->KR = KeyReload;
 }
 
@@ -57,9 +57,9 @@ void Watchdog::reload() const
  */
 void Watchdog::init(uint32_t period) const
 {
-	constexpr uint32_t COUNT_LENGTH = 12;
-	constexpr uint32_t COUNT_MASK = (1 << COUNT_LENGTH) - 1;
-	constexpr uint32_t MAX_PERIOD_MS = 32760;
+	static constexpr uint32_t COUNT_LENGTH = 12;
+	static constexpr uint32_t COUNT_MASK = (1 << COUNT_LENGTH) - 1;
+	static constexpr uint32_t MAX_PERIOD_MS = 32760;
 
 	period = (period > MAX_PERIOD_MS) ? MAX_PERIOD_MS : period;
 
@@ -133,8 +133,8 @@ void Watchdog::setPrescaler(Prescaler prescaler) const
  */
 void Watchdog::enableWriteAccess() const
 {
-	constexpr uint16_t WriteAccessEnable = 0x5555;
-	IWDG->KR = WriteAccessEnable;
+	static constexpr uint16_t WRITE_ACCESS_ENABLE = 0x5555;
+	IWDG->KR = WRITE_ACCESS_ENABLE;
 }
 
 /**
@@ -142,8 +142,8 @@ void Watchdog::enableWriteAccess() const
  */
 void Watchdog::disableWriteAccess() const
 {
-	constexpr uint16_t WriteAccessDisable = 0x0000;
-	IWDG->KR = WriteAccessDisable;
+	static constexpr uint16_t WRITE_ACCESS_DISABLE = 0x0000;
+	IWDG->KR = WRITE_ACCESS_DISABLE;
 }
 
 } // namespace stm32f10x_driver_lib

@@ -122,7 +122,7 @@ void Interrupt::disableGlobally()
  */
 void Interrupt::setPriorityGroup(PriorityGroup priorityGroup)
 {
-	constexpr uint32_t AIRCR_VECTKEY_MASK = 0x05FA0000;
+	static constexpr uint32_t AIRCR_VECTKEY_MASK = 0x05FA0000;
 	SCB->AIRCR = AIRCR_VECTKEY_MASK | static_cast<uint32_t>(priorityGroup);
 }
 

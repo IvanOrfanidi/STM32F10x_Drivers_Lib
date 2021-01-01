@@ -208,25 +208,25 @@ void Uart::setBaudRate(uint32_t baudRate)
 uint32_t Uart::getApbClock(uint32_t sysClock) const
 {
 	// Get HCLK prescaler
-	constexpr uint32_t CFGR_HPRE_SET_MASK = 0x000000F0;
+	static constexpr uint32_t CFGR_HPRE_SET_MASK = 0x000000F0;
 	uint32_t temp = RCC->CFGR & CFGR_HPRE_SET_MASK;
 	temp >>= 4;
 
 	// Get HCLK clock frequency
-	constexpr uint8_t APB_AHB_PRESC_TABLE[16] = {
+	static constexpr uint8_t APB_AHB_PRESC_TABLE[16] = {
 	    0, 0, 0, 0, 1, 2, 3, 4, 1, 2, 3, 4, 6, 7, 8, 9};
 	uint32_t presc = APB_AHB_PRESC_TABLE[temp];
 	const uint32_t hclk = sysClock >> presc;
 
 	if(_uart == USART1) {
 		// Get APB2 prescaler
-		constexpr uint32_t CFGR_PPRE2_SET_MASK = 0x00003800;
+		static constexpr uint32_t CFGR_PPRE2_SET_MASK = 0x00003800;
 		temp = RCC->CFGR & CFGR_PPRE2_SET_MASK;
 		temp >>= 11;
 		presc = APB_AHB_PRESC_TABLE[temp];
 	} else {
 		// Get APB1 prescaler
-		constexpr uint32_t CFGR_PPRE1_SET_MASK = 0x00000700;
+		static constexpr uint32_t CFGR_PPRE1_SET_MASK = 0x00000700;
 		temp = RCC->CFGR & CFGR_PPRE1_SET_MASK;
 		temp >>= 8;
 		presc = APB_AHB_PRESC_TABLE[temp];
