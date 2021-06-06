@@ -6,7 +6,7 @@
 
 * Указать вложенную директорию
 ```
-add_subdirectory(STM32F10x_Drivers_Lib)
+add_subdirectory(stm32f10x_drivers_lib)
 ```
 
 * Добавить цель
@@ -18,7 +18,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE
 
 * Для доступа к инклюдам по `<>` указать цель
 ```
-target_include_directories(STM32F10x_Drivers_Lib INTERFACE
+target_include_directories(stm32f10x_drivers_lib INTERFACE
  ${CMAKE_CURRENT_LIST_DIR}
 )
 ```

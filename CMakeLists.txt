@@ -1,9 +1,9 @@
 # Version CMake
 cmake_minimum_required(VERSION 3.13)
 
-add_library(STM32F10x_Drivers_Lib INTERFACE)
+add_library(stm32f10x_drivers_lib INTERFACE)
 
-target_sources(STM32F10x_Drivers_Lib INTERFACE
+target_sources(stm32f10x_drivers_lib INTERFACE
     # CMSIS
     ${CMAKE_CURRENT_LIST_DIR}/CMSIS/Include/cmsis_armcc.h
     ${CMAKE_CURRENT_LIST_DIR}/CMSIS/Include/cmsis_compiler.h
@@ -28,44 +28,46 @@ target_sources(STM32F10x_Drivers_Lib INTERFACE
     ${CMAKE_CURRENT_LIST_DIR}/CMSIS/Include/tz_context.h
 
     # Utils
-    ${CMAKE_CURRENT_LIST_DIR}/inc/utils/clock_setup.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/utils/non_copyable.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/utils/non_movable.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/utils/observer.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/utils/pin_interface.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/utils/ring_buffer.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/utils/singleton_dynamic.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/utils/singleton_static.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/utils/soft_timer.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/utils/spi_interface.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/utils/virtual_port.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/utils/lock_interrupt.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/utils/clock_setup.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/utils/non_copyable.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/utils/non_movable.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/utils/observer.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/utils/pin_interface.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/utils/ring_buffer.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/utils/singleton_dynamic.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/utils/singleton_static.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/utils/soft_timer.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/utils/spi_interface.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/utils/virtual_port.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/utils/lock_interrupt.h
 
     # Include
-    ${CMAKE_CURRENT_LIST_DIR}/inc/clock.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/dwt_timer.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/exti.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/flash.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/interrupt.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/rtc.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/spi.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/systick.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/uart.h
-    ${CMAKE_CURRENT_LIST_DIR}/inc/watchdog.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/clock.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/dwt_timer.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/exti.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/flash.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/interrupt.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/rtc.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/spi.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/i2c.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/systick.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/uart.h
+    ${CMAKE_CURRENT_LIST_DIR}/include/watchdog.h
 
     # Source
-    ${CMAKE_CURRENT_LIST_DIR}/src/clock.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/dwt_timer.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/exti.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/flash.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/gpio.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/interrupt.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/rtc.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/spi.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/systick.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/uart.cpp
-    ${CMAKE_CURRENT_LIST_DIR}/src/watchdog.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/clock.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/dwt_timer.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/exti.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/flash.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/gpio.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/interrupt.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/rtc.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/spi.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/i2c.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/systick.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/uart.cpp
+    ${CMAKE_CURRENT_LIST_DIR}/source/watchdog.cpp
 )
 
 # Need to access files by < >
-target_include_directories(STM32F10x_Drivers_Lib INTERFACE ${CMAKE_CURRENT_LIST_DIR})
+target_include_directories(stm32f10x_drivers_lib INTERFACE ${CMAKE_CURRENT_LIST_DIR})

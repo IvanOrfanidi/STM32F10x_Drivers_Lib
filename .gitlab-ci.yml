@@ -1,7 +1,9 @@
-build:
+stages:
+  - checking
+
+clang-format:
+  stage: checking
   script:
-  - cd /media/storage/gitlab/
-  after_script:
-  - cd /media/storage/gitlab/
-  - sudo rm -rf STM32F10x_Drivers_Lib
-  - git clone http://192.168.109.15/root/STM32F10x_Drivers_Lib.git
+    - git clone http://git.home.lan/root/check-clang-format.git
+    - cp check-clang-format/check-clang-format.py .
+    - python3 check-clang-format.py -r .
